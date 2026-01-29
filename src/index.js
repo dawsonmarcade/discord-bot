@@ -1,9 +1,12 @@
-require('dotenv').config;
-const { Client, IntentsBitField } = require('discord.js');
-const {SlashCommandBuilder} =require('discord.js');
+require('dotenv').config();
+const { Client, IntentsBitField, Events } = require('discord.js');
 
 
+function getRandomArbitrary(max) {
+    return Math.floor((Math.random()*max), 2);
+}
 
+/// bots access to methods. Add more as needed
 const client = new Client({
     intents: [
         IntentsBitField.Flags.Guilds,
@@ -13,19 +16,32 @@ const client = new Client({
     ],
 });
 
-client.on('clientReady', (c)=>{
+
+/// Log when bot has logged in to server
+client.once(Events.ClientReady, (c)=>{
     console.log(`${c.user.tag} is online`);
 });
 
-client.on('messageCreate', (message) => {
-    if (message.author.username === 'sueza'){
-        message.reply('The creature speaks');
+client.on('interactionCreate', (interaction) => {
+    console.log(interaction);
+    if (!interaction.isChatInputCommand()) return;
+    
+    if (interaction.commandName === 'size'){
+        
+        const rand_num = getRandomArbitrary(16);
+        if (rand_num >= 6 ) {
+            interaction.reply(`${rand_num} inches is your dick size! Congrats on the largie!`)
+        } else {
+            interaction.reply(`${rand_num} inches is your dick size. Quite unfortunate...`)         
+        }  
     }
-
 });
 
-client.on('interactionCreate', (interaction) => {
-    if (!interaction.isChatInputCommand()) return;
-})
+client.on('messageCreate', (message)=>{
+    
+    if (message.content === 'hello') {
+        message.reply('hello');
+    }
+});
 
-console.log(process.env.TOKEN);
+client.login(process.env.BOT_TOKEN);
