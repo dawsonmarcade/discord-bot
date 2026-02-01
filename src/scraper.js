@@ -6,7 +6,7 @@ async function scrapeProduct(url) {
     await page.goto(url);
     
     //destructuring the image elements
-    const [el] = await page.$x('//html/body/div[13]/div[2]/div[3]/div[1]/div/div/div/c-wiz/div/div[1]/div[2]/div[1]/a/img[1]')
+    const [el] = await page.$x('//html/body/div[13]/div[2]/div[3]/div[1]/div/div/div/c-wiz/div/div[1]/div[2]/div[1]/a/img[1]');
     const src =  await el.getProperty('src');
     const srcTxt = src.jsonValue();
 

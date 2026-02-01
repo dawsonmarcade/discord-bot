@@ -29,7 +29,7 @@ client.on('interactionCreate', (interaction) => {
     if (interaction.commandName === 'size'){
         
         const rand_num = getRandomArbitrary(16);
-        if (rand_num >= 6 ) {
+        if (rand_num >= 7) {
             interaction.reply(`${rand_num} inches is your dick size! Congrats on the largie!`)
         } else {
             interaction.reply(`${rand_num} inches is your dick size. Quite unfortunate...`)         
@@ -42,6 +42,6 @@ client.on('messageCreate', (message)=>{
     if (message.content === 'hello') {
         message.reply('hello');
     }
-});
+}); 
 
 client.login(process.env.BOT_TOKEN);
